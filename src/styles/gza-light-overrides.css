@@ -1,0 +1,217 @@
+/**
+ * Global light-theme overrides for Gza (Settings screen / image_10 reference).
+ * Applied via [data-gza-theme="light"] on <html> — no per-page edits required.
+ * Chrome regions (header, bottom nav) use [data-gza-chrome] and keep dark styling.
+ */
+
+[data-gza-theme="light"] {
+  color-scheme: light;
+}
+
+/* ── Page surface ─────────────────────────────────────────────── */
+[data-gza-theme="light"] body,
+[data-gza-theme="light"] #root,
+[data-gza-theme="light"] .min-h-screen {
+  background-color: var(--gza-page-bg) !important;
+  color: var(--gza-text-primary);
+}
+
+[data-gza-theme="light"] .min-h-screen[style*="background"],
+[data-gza-theme="light"] .min-h-screen[style*="backgroundColor"],
+[data-gza-theme="light"] [class*="min-h-screen"][style*="#0D1B2A"],
+[data-gza-theme="light"] [class*="min-h-screen"][style*="#0d1b2a"] {
+  background-color: var(--gza-page-bg) !important;
+}
+
+/* Dark navy inline page backgrounds → off-white (exclude chrome descendants) */
+[data-gza-theme="light"] [style*="background"][style*="#0D1B2A"]:not([data-gza-chrome]):not([data-gza-chrome] *),
+[data-gza-theme="light"] [style*="background"][style*="#0d1b2a"]:not([data-gza-chrome]):not([data-gza-chrome] *),
+[data-gza-theme="light"] [style*="backgroundColor"][style*="#0D1B2A"]:not([data-gza-chrome]):not([data-gza-chrome] *),
+[data-gza-theme="light"] [style*="backgroundColor"][style*="#0d1b2a"]:not([data-gza-chrome]):not([data-gza-chrome] *),
+[data-gza-theme="light"] [style*="background"][style*="#0f0f0f"]:not([data-gza-chrome]):not([data-gza-chrome] *) {
+  background-color: var(--gza-page-bg) !important;
+}
+
+/* Dark card inline backgrounds → white raised cards */
+[data-gza-theme="light"] [style*="background"][style*="#152238"]:not([data-gza-chrome]):not([data-gza-chrome] *),
+[data-gza-theme="light"] [style*="backgroundColor"][style*="#152238"]:not([data-gza-chrome]):not([data-gza-chrome] *),
+[data-gza-theme="light"] [style*="background"][style*="#1A2942"]:not([data-gza-chrome]):not([data-gza-chrome] *) {
+  background: var(--gza-card-bg) !important;
+  box-shadow: var(--gza-shadow-card), var(--gza-shadow-card-inset) !important;
+  border-color: var(--gza-border) !important;
+}
+
+/* ── Tailwind glass utilities → white cards ─────────────────── */
+[data-gza-theme="light"] .bg-white\/10,
+[data-gza-theme="light"] .bg-white\/5,
+[data-gza-theme="light"] .bg-white\/\[0\.05\],
+[data-gza-theme="light"] .bg-white\/\[0\.03\] {
+  background-color: var(--gza-card-bg) !important;
+  box-shadow: var(--gza-shadow-card), var(--gza-shadow-card-inset) !important;
+  border: 1px solid var(--gza-border) !important;
+}
+
+[data-gza-theme="light"] .border-white\/5,
+[data-gza-theme="light"] .border-white\/10,
+[data-gza-theme="light"] .border-white\/15 {
+  border-color: var(--gza-border) !important;
+}
+
+[data-gza-theme="light"] .text-gray-400,
+[data-gza-theme="light"] .text-gray-500 {
+  color: var(--gza-text-sub) !important;
+}
+
+/* ── Text: invert white → dark (restore inside chrome) ────────── */
+[data-gza-theme="light"] .text-white:not([data-gza-chrome] .text-white) {
+  color: var(--gza-text-primary) !important;
+}
+
+[data-gza-theme="light"] .text-white\/50 {
+  color: var(--gza-text-sub) !important;
+}
+
+[data-gza-theme="light"] .text-white\/60 {
+  color: color-mix(in srgb, var(--gza-text-primary) 60%, transparent) !important;
+}
+
+[data-gza-theme="light"] .text-white\/40 {
+  color: color-mix(in srgb, var(--gza-text-sub) 80%, transparent) !important;
+}
+
+[data-gza-theme="light"] .text-white\/30 {
+  color: color-mix(in srgb, var(--gza-text-sub) 65%, transparent) !important;
+}
+
+[data-gza-theme="light"] .text-white\/90 {
+  color: var(--gza-text-primary) !important;
+}
+
+[data-gza-theme="light"] [data-gza-chrome] .text-white,
+[data-gza-theme="light"] [data-gza-chrome].text-white,
+[data-gza-theme="light"] [data-gza-chrome] .text-white\/50,
+[data-gza-theme="light"] [data-gza-chrome] .text-white\/60,
+[data-gza-theme="light"] [data-gza-chrome] .text-white\/40,
+[data-gza-theme="light"] [data-gza-chrome] .text-white\/30,
+[data-gza-theme="light"] [data-gza-chrome] .text-white\/90 {
+  color: #ffffff !important;
+}
+
+[data-gza-theme="light"] [data-gza-chrome] .text-white\/50 {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Keep white text on crimson / accent pill backgrounds */
+[data-gza-theme="light"] [style*="#DC143C"] .text-white,
+[data-gza-theme="light"] [style*="rgb(220, 20, 60)"] .text-white,
+[data-gza-theme="light"] [style*="#dc143c"] .text-white {
+  color: #ffffff !important;
+}
+
+/* ── Form fields ─────────────────────────────────────────────── */
+[data-gza-theme="light"] input:not([data-gza-chrome] input),
+[data-gza-theme="light"] textarea:not([data-gza-chrome] textarea),
+[data-gza-theme="light"] select:not([data-gza-chrome] select) {
+  background-color: var(--gza-card-bg) !important;
+  color: var(--gza-text-primary) !important;
+  border-color: var(--gza-border) !important;
+  box-shadow: var(--gza-shadow-card) !important;
+}
+
+[data-gza-theme="light"] input::placeholder,
+[data-gza-theme="light"] textarea::placeholder {
+  color: var(--gza-text-sub) !important;
+  opacity: 1;
+}
+
+/* ── Cards & glass panels (inline dark-glass → white raised) ─── */
+[data-gza-theme="light"] button[style*="backdrop-filter"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] button[style*="backdropFilter"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] div[style*="backdrop-filter"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] div[style*="backdropFilter"]:not([data-gza-chrome] *):not([data-gza-chrome]) {
+  background: var(--gza-card-bg) !important;
+  border-color: var(--gza-border-strong) !important;
+  box-shadow: var(--gza-shadow-card), var(--gza-shadow-card-inset) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Semi-transparent white glass panels */
+[data-gza-theme="light"] [style*="255, 255, 255"][class*="rounded-2"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] [style*="255, 255, 255"][class*="rounded-3"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] [style*="255,255,255"][class*="rounded-2"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] [style*="255,255,255"][class*="rounded-3"]:not([data-gza-chrome] *):not([data-gza-chrome]) {
+  background: var(--gza-card-bg) !important;
+  border-color: var(--gza-border) !important;
+  box-shadow: var(--gza-shadow-card), var(--gza-shadow-card-inset) !important;
+}
+
+/* Gradient glass cards on Home and similar screens */
+[data-gza-theme="light"] button[class*="rounded-3"]:not([data-gza-chrome] *):not([data-gza-chrome])[style*="linear-gradient"],
+[data-gza-theme="light"] button[class*="rounded-2"]:not([data-gza-chrome] *):not([data-gza-chrome])[style*="rgba(255"] {
+  background: var(--gza-card-bg) !important;
+  box-shadow: var(--gza-shadow-card-strong) !important;
+  border: 1px solid var(--gza-border) !important;
+}
+
+/* List / stat cards */
+[data-gza-theme="light"] .rounded-2xl[style*="rgba(255"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] .rounded-3xl[style*="rgba(255"]:not([data-gza-chrome] *):not([data-gza-chrome]) {
+  background: var(--gza-card-bg) !important;
+  border-color: var(--gza-border) !important;
+  box-shadow: var(--gza-shadow-card), var(--gza-shadow-card-inset) !important;
+}
+
+/* Divider borders (white-alpha → light gray) */
+[data-gza-theme="light"] [style*="border"][style*="255, 255, 255"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] [style*="borderTop"][style*="255, 255, 255"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] [style*="borderLeft"][style*="255, 255, 255"]:not([data-gza-chrome] *):not([data-gza-chrome]),
+[data-gza-theme="light"] [style*="borderRight"][style*="255, 255, 255"]:not([data-gza-chrome] *):not([data-gza-chrome]) {
+  border-color: var(--gza-border) !important;
+}
+
+/* ── shadcn / data-slot cards ─────────────────────────────────── */
+[data-gza-theme="light"] [data-slot="card"] {
+  background-color: var(--gza-card-bg);
+  color: var(--gza-text-primary);
+  border-color: var(--gza-border);
+  box-shadow: var(--gza-shadow-card), var(--gza-shadow-card-inset);
+  border-radius: var(--gza-radius-card);
+}
+
+/* ── Raised buttons (ნათელი / active appearance pattern) ─────── */
+[data-gza-theme="light"] button[style*="#DC143C"][style*="box-shadow"]:not([data-gza-chrome] *),
+[data-gza-theme="light"] button[style*="rgb(220, 20, 60)"][style*="box-shadow"]:not([data-gza-chrome] *),
+[data-gza-theme="light"] button[style*="#dc143c"][style*="boxShadow"]:not([data-gza-chrome] *) {
+  box-shadow: var(--gza-shadow-raised) !important;
+}
+
+/* Generic interactive cards: bottom-heavy depth shadow */
+[data-gza-theme="light"] button[class*="rounded-3"]:not([data-gza-chrome] *):not([data-gza-chrome]):not([style*="background: none"]):not([style*="background:none"]),
+[data-gza-theme="light"] button[class*="rounded-2"]:not([data-gza-chrome] *):not([data-gza-chrome]):not([style*="background: none"]):not([style*="background:none"]):not([style*="backgroundColor: 'transparent'"]) {
+  box-shadow: var(--gza-shadow-card-strong) !important;
+}
+
+/* ── Search icon inside inputs ───────────────────────────────── */
+[data-gza-theme="light"] .relative svg.text-white\/40,
+[data-gza-theme="light"] .relative svg.text-white\/30 {
+  color: var(--gza-text-sub) !important;
+}
+
+/* ── Headings & body copy (inline dark-on-light safety net) ───── */
+[data-gza-theme="light"] h1:not([data-gza-chrome] h1),
+[data-gza-theme="light"] h2:not([data-gza-chrome] h2),
+[data-gza-theme="light"] h3:not([data-gza-chrome] h3),
+[data-gza-theme="light"] h4:not([data-gza-chrome] h4),
+[data-gza-theme="light"] p:not([data-gza-chrome] p) {
+  color: inherit;
+}
+
+/* ── Chrome: lock header & bottom nav to dark palette ─────────── */
+[data-gza-theme="light"] [data-gza-chrome] {
+  color: #ffffff;
+}
+
+[data-gza-theme="light"] [data-gza-chrome] button[style*="color"] {
+  color: revert;
+}
