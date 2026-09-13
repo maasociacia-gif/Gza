@@ -27,7 +27,8 @@ import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('subscription'); // დროებით ვსვამთ 'subscription'-ს, რომ ეგრევე ფასების გვერდი გაგიხსნას
+  const [activeTab, setActiveTab] = useState('home');
+  const [hasSelectedPlan, setHasSelectedPlan] = useState(false);
   const [selectedOrderId, setSelectedOrderId] = useState<string>('');
   const [historyStack, setHistoryStack] = useState<string[]>([]);
   const { colors } = useTheme();
@@ -44,7 +45,7 @@ export default function App() {
   const goBack = () => {
     setHistoryStack((prevHistory) => {
       if (prevHistory.length === 0) {
-        setActiveTab('allscreens');
+        setActiveTab('home');
         return prevHistory;
       }
       const previousTab = prevHistory[prevHistory.length - 1];
@@ -53,37 +54,27 @@ export default function App() {
     });
   };
 
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'A') {
-        e.preventDefault();
-        navigateTo('admin');
-      }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'F') {
-        e.preventDefault();
-        navigateTo('flow');
-      }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'O') {
-        e.preventDefault();
-        navigateTo('allscreens');
-      }
-      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key === 'B') {
-        e.preventDefault();
-        navigateTo('business');
-      }
-    };
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
-
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--gza-page-bg)' }}>
       <div className="w-8 h-8 border-2 rounded-full animate-spin" style={{ borderColor: 'var(--gza-border)', borderTopColor: 'var(--gza-crimson)' }} />
     </div>
   );
 
+  // 1. ნაბიჯი: ავტორიზაცია / რეგისტრაცია
   if (!user) return <LoginScreen />;
 
+  // 2. ნაბიჯი: პაკეტის არჩევა (ავტორიზაციის შემდეგ)
+  if (!hasSelectedPlan && activeTab !== 'subscription') {
+    return (
+      <div className="min-h-screen flex flex-col" style={{ backgroundColor: colors.bg }}>
+        <div className="flex-1 max-w-[1200px] w-full mx-auto p-4 overflow-y-auto">
+          <PricingScreen onSkip={() => setHasSelectedPlan(true)} />
+        </div>
+      </div>
+    );
+  }
+
+  // 3. ნაბიჯი: აპლიკაციის მთავარი სივრცე
   return (
     <div
       className="min-h-screen flex flex-col transition-colors duration-300"
