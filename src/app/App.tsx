@@ -4,7 +4,7 @@ import { HomeContent } from './components/HomeContent';
 import { BottomNav } from './components/BottomNav';
 import { ProfilePage } from './components/ProfilePage';
 import { EmergencyMapPage } from './components/EmergencyMapPage';
-import { SubscriptionPage } from './components/SubscriptionPage';
+import { PricingScreen } from './components/PricingScreen';
 import { AdminDashboard } from './components/AdminDashboard';
 import { ChatScreen } from './components/ChatScreen';
 import { UserProfileView } from './components/UserProfileView';
