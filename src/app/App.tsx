@@ -4,7 +4,7 @@ import { HomeContent } from './components/HomeContent';
 import { BottomNav } from './components/BottomNav';
 import { ProfilePage } from './components/ProfilePage';
 import { EmergencyMapPage } from './components/EmergencyMapPage';
-import { PricingScreen } from './components/PricingScreen';
+import PricingScreen from './components/PricingScreen';
 import { AdminDashboard } from './components/AdminDashboard';
 import { ChatScreen } from './components/ChatScreen';
 import { UserProfileView } from './components/UserProfileView';
@@ -27,7 +27,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [activeTab, setActiveTab] = useState('subscription'); // დროებით ვსვამთ 'subscription'-ს, რომ ეგრევე ფასების გვერდი გაგიხსნას
   const [selectedOrderId, setSelectedOrderId] = useState<string>('');
   const [historyStack, setHistoryStack] = useState<string[]>([]);
   const { colors } = useTheme();
@@ -125,6 +125,10 @@ export default function App() {
           onBack={goBack}
           onBusinessRegister={() => navigateTo('business')}
         />
+      ) : activeTab === 'subscription' ? (
+        <div className="flex-1 max-w-[1200px] w-full mx-auto p-4 overflow-y-auto">
+          <PricingScreen onSkip={() => navigateTo('home')} />
+        </div>
       ) : (
         <>
           <div className="flex-1 flex flex-col max-w-[480px] mx-auto w-full lg:max-w-[1200px] overflow-hidden">
@@ -132,8 +136,6 @@ export default function App() {
               <ProfilePage onBack={goBack} />
             ) : activeTab === 'services' ? (
               <EmergencyMapPage onNavigate={navigateTo} />
-            ) : activeTab === 'subscription' ? (
-              <SubscriptionPage onBack={goBack} />
             ) : activeTab === 'home' ? (
               <>
                 <Header onProfileClick={() => navigateTo('userprofile')} />
