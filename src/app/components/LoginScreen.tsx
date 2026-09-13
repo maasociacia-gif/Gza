@@ -33,9 +33,13 @@ export function LoginScreen() {
       style={{ backgroundColor: '#0f0f0f' }}>
       
       {/* Logo */}
-      <div className="mb-10 text-center">
-        <h1 className="text-5xl font-bold text-white tracking-tight">GZA</h1>
-        <p className="text-gray-400 mt-2 text-sm">ემიგრანტების პლატფორმა</p>
+      <div className="mb-6 flex flex-col items-center text-center">
+        <img 
+          src="/logo.png" 
+          alt="Gza Logo" 
+          className="w-44 h-auto object-contain mb-1" 
+        />
+        <p className="text-gray-400 text-sm">ემიგრანტების პლატფორმა</p>
       </div>
 
       {/* Toggle */}
