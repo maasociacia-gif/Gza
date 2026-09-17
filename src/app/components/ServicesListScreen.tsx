@@ -16,7 +16,6 @@ interface ServiceCard {
 }
 
 export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
-  // State მოდალური ფანჯრის გახსნა/დახურვისთვის
   const [isSendMoneyOpen, setIsSendMoneyOpen] = useState(false);
 
   const services: ServiceCard[] = [
@@ -78,12 +77,6 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
     }
   ];
 
-  const handleServiceClick = (serviceId: string) => {
-    if (serviceId === 'money-transfer') {
-      setIsSendMoneyOpen(true);
-    }
-  };
-
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#0D1B2A' }}>
       {/* Header */}
@@ -120,7 +113,11 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
           {services.map((service, index) => (
             <motion.button
               key={service.id}
-              onClick={() => handleServiceClick(service.id)}
+              onClick={() => {
+                if (service.id === 'money-transfer') {
+                  setIsSendMoneyOpen(true);
+                }
+              }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -134,7 +131,6 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
               }}
             >
               <div className="flex items-center gap-4 px-5 py-5">
-                {/* Icon Container */}
                 <div 
                   className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
                   style={{
@@ -146,7 +142,6 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
                   {service.icon}
                 </div>
 
-                {/* Text Content - Centered */}
                 <div className="flex-1 text-left">
                   <p className="text-white m-0" style={{ fontSize: '16px', fontWeight: '600', lineHeight: '1.3' }}>
                     {service.titleGeo}
@@ -156,7 +151,6 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
                   </p>
                 </div>
 
-                {/* Arrow Icon */}
                 <div className="flex-shrink-0">
                   <ChevronRight size={20} strokeWidth={1.5} className="text-white/40" />
                 </div>
@@ -165,7 +159,6 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
           ))}
         </div>
 
-        {/* Bottom Spacing Helper Text */}
         <div className="mt-8 text-center">
           <p className="text-white/30 m-0" style={{ fontSize: '12px' }}>
             რომელი სერვისი გჭირდებათ?
@@ -176,7 +169,6 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
         </div>
       </div>
 
-      {/* ფულის გაგზავნის მოდალური ფანჯარა */}
       <SendMoneyModal 
         isOpen={isSendMoneyOpen} 
         onClose={() => setIsSendMoneyOpen(false)} 
