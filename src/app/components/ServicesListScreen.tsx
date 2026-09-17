@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SendMoneyModal from './SendMoneyModal';
 import { ArrowLeft, DollarSign, Package, Car, Truck, MessageSquare, Bike, Plane, Shield, ChevronRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 
 interface ServicesListScreenProps {
   onBack: () => void;
@@ -169,6 +169,7 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
         </div>
       </div>
 
+      {/* Modal */}
       <SendMoneyModal 
         isOpen={isSendMoneyOpen} 
         onClose={() => setIsSendMoneyOpen(false)} 
@@ -176,3 +177,5 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
     </div>
   );
 }
+
+export default ServicesListScreen;

@@ -1,76 +1,52 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 interface SendMoneyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectService?: (serviceId: string, link: string) => void;
+  onSelectService?: (serviceId: string) => void;
 }
 
-interface ServiceItem {
-  id: string;
-  name: string;
-  slogan: string;
-  buttonText: string;
-  affiliateLink?: string;
-  color: string;
-  borderColor: string;
-  isUpcoming?: boolean; // ინდიკატორი "მალე" სერვისისთვის
-}
-
-const SERVICES: ServiceItem[] = [
-  {
-    id: 'exchange',
-    name: 'გადაცვალე ფული',
-    slogan: '🔄 ვალუტის კონვერტაცია საუკეთესო კურსით',
-    buttonText: 'მალე ➔',
-    color: 'bg-gray-600 cursor-not-allowed opacity-60',
-    borderColor: 'border-gray-600/40',
-    isUpcoming: true,
-  },
+const SERVICES = [
   {
     id: 'moneygram',
     name: 'MoneyGram',
-    slogan: '⚡️ სწრაფი განაღდება cash-ით ან ბანკში',
-    buttonText: 'გაგზავნა MoneyGram-ით ➔',
-    affiliateLink: 'https://www.moneygram.com',
+    tag: 'პოპულარული',
+    desc: 'სწრაფი გზავნილები Cash / Bank',
     color: 'bg-red-600 hover:bg-red-700',
-    borderColor: 'border-red-500/30 hover:border-red-500',
-  },
-  {
-    id: 'wise',
-    name: 'Wise',
-    slogan: '🎯 რეალური საბაზრო კურსი (დიდ თანხებზე)',
-    buttonText: 'გაგზავნა Wise-ით ➔',
-    affiliateLink: 'https://wise.com',
-    color: 'bg-sky-500 hover:bg-sky-600',
-    borderColor: 'border-sky-500/30 hover:border-sky-500',
+    tagBg: 'bg-red-100',
+    tagColor: 'text-red-700',
+    borderColor: 'border-red-200 hover:border-red-500',
   },
   {
     id: 'profee',
     name: 'Profee',
-    slogan: '💳 ყველაზე დაბალი საკომისიო ბარათზე',
-    buttonText: 'გაგზავნა Profee-თი ➔',
-    affiliateLink: 'https://www.profee.com',
+    tag: 'ყველაზე იაფი ბარათზე',
+    desc: 'პირდაპირ ქართულ ბარათზე',
     color: 'bg-emerald-600 hover:bg-emerald-700',
-    borderColor: 'border-emerald-500/30 hover:border-emerald-500',
+    tagBg: 'bg-emerald-100',
+    tagColor: 'text-emerald-700',
+    borderColor: 'border-emerald-200 hover:border-emerald-500',
+  },
+  {
+    id: 'wise',
+    name: 'Wise',
+    tag: 'საუკეთესო კურსი',
+    desc: 'ოფიციალური შუა-საბაზრო კურსი',
+    color: 'bg-sky-500 hover:bg-sky-600',
+    tagBg: 'bg-sky-100',
+    tagColor: 'text-sky-700',
+    borderColor: 'border-sky-200 hover:border-sky-500',
   },
   {
     id: 'paysend',
     name: 'Paysend',
-    slogan: '🚀 Card-to-Card სწრაფი გადარიცხვა',
-    buttonText: 'გაგზავნა Paysend-ით ➔',
-    affiliateLink: 'https://paysend.com',
+    tag: 'Card to Card',
+    desc: 'მომენტალური გადარიცხვა',
     color: 'bg-purple-600 hover:bg-purple-700',
-    borderColor: 'border-purple-500/30 hover:border-purple-500',
-  },
-  {
-    id: 'western-union',
-    name: 'Western Union',
-    slogan: '🌍 ყველაზე ფართო ფილიალების ქსელი',
-    buttonText: 'გაგზავნა Western Union-ით ➔',
-    affiliateLink: 'https://www.westernunion.com',
-    color: 'bg-amber-500 hover:bg-amber-600',
-    borderColor: 'border-amber-500/30 hover:border-amber-500',
+    tagBg: 'bg-purple-100',
+    tagColor: 'text-purple-700',
+    borderColor: 'border-purple-200 hover:border-purple-500',
   },
 ];
 
@@ -79,73 +55,63 @@ export const SendMoneyModal: React.FC<SendMoneyModalProps> = ({
   onClose,
   onSelectService,
 }) => {
-  if (!isOpen) return null;
+  if (!isOpen || typeof document === 'undefined') return null;
 
-  const handleAction = (item: ServiceItem) => {
-    if (item.isUpcoming) return; // თუ "მალე" სერვისია, არაფერი მოხდეს
-
-    if (onSelectService && item.affiliateLink) {
-      onSelectService(item.id, item.affiliateLink);
-    } else if (item.affiliateLink) {
-      window.open(item.affiliateLink, '_blank');
-    }
-  };
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity">
-      {/* Background Overlay */}
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] flex items-end sm:items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity">
+      {/* Overlay backdrop */}
       <div className="fixed inset-0" onClick={onClose} />
 
       {/* Bottom Sheet Card */}
-      <div className="relative z-10 w-full max-w-lg bg-[#111827] text-white rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl transition-transform border border-gray-800">
+      <div className="relative z-10 w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl p-6 shadow-2xl transition-transform animate-in fade-in slide-in-from-bottom duration-300">
         
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-800">
-          <h2 className="text-xl font-bold text-white">ფულის გაგზავნა</h2>
+        <div className="flex items-center justify-between pb-4 mb-4 border-b border-gray-100">
+          <h2 className="text-xl font-bold text-gray-900">ფულის გაგზავნა</h2>
           <button
+            type="button"
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 font-bold transition-colors"
           >
             ✕
           </button>
         </div>
 
-        {/* Services List */}
-        <div className="flex flex-col gap-3 max-h-[65vh] overflow-y-auto pr-1">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-2 gap-3.5 max-h-[70vh] overflow-y-auto p-1">
           {SERVICES.map((item) => (
             <div
               key={item.id}
-              className={`flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-2xl bg-[#1F2937] border transition-all gap-3 ${item.borderColor}`}
+              className={`flex flex-col justify-between p-4 rounded-2xl border-2 transition-all shadow-sm ${item.borderColor}`}
             >
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-base font-extrabold text-white">
-                    {item.name}
-                  </h3>
-                  {item.isUpcoming && (
-                    <span className="bg-amber-500/20 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-500/30">
-                      მალე
-                    </span>
-                  )}
-                </div>
-                <p className="text-xs text-gray-300 leading-relaxed">
-                  {item.slogan}
+              <div>
+                <span className={`inline-block px-2.5 py-1 rounded-md text-[10px] font-semibold mb-2 ${item.tagBg} ${item.tagColor}`}>
+                  {item.tag}
+                </span>
+                <h3 className="text-lg font-extrabold text-gray-800 mb-1">
+                  {item.name}
+                </h3>
+                <p className="text-xs text-gray-500 mb-4 min-h-[32px] leading-relaxed">
+                  {item.desc}
                 </p>
               </div>
 
-              {/* Action Button */}
               <button
-                disabled={item.isUpcoming}
-                onClick={() => handleAction(item)}
-                className={`py-2.5 px-4 rounded-xl text-white text-xs font-bold transition-all whitespace-nowrap shadow-md ${item.color}`}
+                type="button"
+                onClick={() => {
+                  if (onSelectService) onSelectService(item.id);
+                  onClose();
+                }}
+                className={`w-full py-2 px-3 rounded-xl text-white text-xs font-bold flex items-center justify-center gap-1 transition-colors ${item.color}`}
               >
-                {item.buttonText}
+                გაგზავნა ➔
               </button>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
