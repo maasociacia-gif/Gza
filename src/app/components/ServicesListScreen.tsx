@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import SendMoneyModal from './SendMoneyModal';
 import { ArrowLeft, DollarSign, Package, Car, Truck, MessageSquare, Bike, Plane, Shield, ChevronRight } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -15,6 +16,9 @@ interface ServiceCard {
 }
 
 export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
+  // State მოდალური ფანჯრის გახსნა/დახურვისთვის
+  const [isSendMoneyOpen, setIsSendMoneyOpen] = useState(false);
+
   const services: ServiceCard[] = [
     {
       id: 'money-transfer',
@@ -74,6 +78,12 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
     }
   ];
 
+  const handleServiceClick = (serviceId: string) => {
+    if (serviceId === 'money-transfer') {
+      setIsSendMoneyOpen(true);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#0D1B2A' }}>
       {/* Header */}
@@ -110,6 +120,7 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
           {services.map((service, index) => (
             <motion.button
               key={service.id}
+              onClick={() => handleServiceClick(service.id)}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
@@ -164,6 +175,12 @@ export function ServicesListScreen({ onBack }: ServicesListScreenProps) {
           </p>
         </div>
       </div>
+
+      {/* ფულის გაგზავნის მოდალური ფანჯარა */}
+      <SendMoneyModal 
+        isOpen={isSendMoneyOpen} 
+        onClose={() => setIsSendMoneyOpen(false)} 
+      />
     </div>
   );
 }
