@@ -31,6 +31,7 @@ export function Header({ onProfileClick, showWelcome = false }: HeaderProps) {
 
       {/* Profile Avatar with Flag Badge */}
       <button
+        type="button"
         onClick={onProfileClick}
         className="relative border-0 cursor-pointer transition-transform hover:scale-105 active:scale-95"
         style={{ background: 'none', padding: 0 }}
@@ -63,3 +64,5 @@ export function Header({ onProfileClick, showWelcome = false }: HeaderProps) {
     </header>
   );
 }
+
+export default Header;
