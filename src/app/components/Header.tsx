@@ -1,5 +1,5 @@
 import React from 'react';
-import gzaLogo from 'figma:asset/7ddd52c40e67e56f2b430b0b68ec6b9c970cfe3b.png';
+import gzaLogo from '../../assets/logo.png';
 
 interface HeaderProps {
   onProfileClick?: () => void;
@@ -32,6 +32,7 @@ export function Header({ onProfileClick, showWelcome = false }: HeaderProps) {
 
       {/* Profile Avatar with Flag Badge */}
       <button
+        type="button"
         onClick={onProfileClick}
         className="relative border-0 cursor-pointer transition-transform hover:scale-105 active:scale-95"
         style={{ background: 'none', padding: 0 }}
@@ -64,3 +65,5 @@ export function Header({ onProfileClick, showWelcome = false }: HeaderProps) {
     </header>
   );
 }
+
+export default Header;
