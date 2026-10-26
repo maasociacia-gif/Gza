@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Heart, Sparkles, Gift, Plus, X, Calendar, DollarSign, Package, Car, Truck, MessageSquare, Bike, Plane, Shield, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { SendMoneyModal } from './SendMoneyModal'; // 👈 1. დაემატა მოდალის იმპორტი
+import { SendMoneyModal } from './SendMoneyModal';
+import { QuickActions } from './QuickActions';
 
 interface CareForHomeScreenProps {
   onBack: () => void;
@@ -172,13 +173,16 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
 
       {/* Main Content - Scrollable */}
       <div className="flex-1 overflow-y-auto pb-28">
-        
+        <div className="px-5 pt-6">
+          <QuickActions onSendMoneyClick={() => setIsSendMoneyOpen(true)} />
+        </div>
+
         {/* Family Calendar Widget - PROMINENT */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="px-5 pt-6 pb-4"
+          className="px-5 pt-0 pb-4"
         >
           <div
             className="rounded-3xl p-5 relative overflow-hidden"
