@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Heart, Sparkles, Gift, Plus, X, Calendar, DollarSign, Package, Car, Truck, MessageSquare, Bike, Plane, Shield, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { SendMoneyModal } from './SendMoneyModal'; // 👈 1. დაემატა მოდალის იმპორტი
 
 interface CareForHomeScreenProps {
   onBack: () => void;
@@ -29,6 +30,8 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
   const [eventNameGeo, setEventNameGeo] = useState('');
   const [selectedEventDate, setSelectedEventDate] = useState(15);
   const [sendGift, setSendGift] = useState(false);
+  
+  const [isSendMoneyOpen, setIsSendMoneyOpen] = useState(false); // 👈 2. დაემატა მოდალის სტეიტი
 
   // Calendar dates with events - Full month
   const [calendarDates, setCalendarDates] = useState<CalendarEvent[]>([
@@ -525,6 +528,12 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + (index * 0.05) }}
+                onClick={() => {
+                  // 👈 3. აქტიურდება ფულის გადარიცხვის მოდალი
+                  if (service.id === 'money-transfer') {
+                    setIsSendMoneyOpen(true);
+                  }
+                }}
                 className="w-full border-0 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)',
@@ -577,6 +586,15 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
           </div>
         </div>
       </div>
+
+      {/* 👈 4. მოდალის გამოტანა კომპონენტის ბოლოში */}
+      <SendMoneyModal 
+        isOpen={isSendMoneyOpen} 
+        onClose={() => setIsSendMoneyOpen(false)} 
+        onSelectService={(serviceId) => {
+          console.log('არჩეული სერვისი:', serviceId);
+        }}
+      />
     </div>
   );
 }
