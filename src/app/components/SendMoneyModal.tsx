@@ -39,7 +39,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Western Union',
     tag: 'ახალი',
     desc: 'გლობალური ქსელი Cash / Bank',
-    url: undefined, // https://www.westernunion.com/de/de/web/send-money/start?ReceiveCountry=GE&ISOCurrency=GEL&SendAmount=100.00&FundsOut=undefined&FundsIn=CreditCard
+    url: 'https://www.westernunion.com/de/de/web/send-money/start?ReceiveCountry=GE&ISOCurrency=GEL&SendAmount=100.00&FundsOut=undefined&FundsIn=CreditCard',
     color: 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold',
     tagBg: 'bg-amber-500/15',
     tagColor: 'text-amber-300',
@@ -50,7 +50,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Profee',
     tag: 'ყველაზე იაფი ბარათზე',
     desc: 'პირდაპირ ქართულ ბარათზე',
-    url: undefined, // https://www.profee.com/ru
+    url: 'https://www.profee.com/ru',
     color: 'bg-emerald-600 hover:bg-emerald-500 text-white',
     tagBg: 'bg-emerald-500/15',
     tagColor: 'text-emerald-300',
@@ -61,7 +61,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Wise',
     tag: 'საუკეთესო კურსი',
     desc: 'ოფიციალური შუა-საბაზრო კურსი',
-    url: undefined, // https://wise.com/de/send-money/?utm_source=google&matchtype=e&device=c&userlocation=9217572&keyword=wise+money+transfer&campaignid=20934525070&adgroupid=161278428447&utm_campaign=20934525070___161278428447&gad_source=1&gad_campaignid=20934525070&gbraid=0AAAAADqE2bBIYWyDzBXaUNWDb24SsTVYF&gclid=CjwKCAiA5Y_YBhBbEiwAK5Dl7dZe0xQYAq0R4NHOG5PT_1wtdKB4dlRCAPGKroRKRgnIABksUKsZ0hoCnb0QAvD_BwE
+    url: 'https://wise.com/de/send-money/?utm_source=google&matchtype=e&device=c&userlocation=9217572&keyword=wise+money+transfer&campaignid=20934525070&adgroupid=161278428447&utm_campaign=20934525070___161278428447&gad_source=1&gad_campaignid=20934525070&gbraid=0AAAAADqE2bBIYWyDzBXaUNWDb24SsTVYF&gclid=CjwKCAiA5Y_YBhBbEiwAK5Dl7dZe0xQYAq0R4NHOG5PT_1wtdKB4dlRCAPGKroRKRgnIABksUKsZ0hoCnb0QAvD_BwE',
     color: 'bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold',
     tagBg: 'bg-sky-500/15',
     tagColor: 'text-sky-300',
@@ -72,7 +72,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Paysend',
     tag: 'Card to Card',
     desc: 'მომენტალური გადარიცხვა',
-    url: undefined, https://paysend.com/de-de/send?utm_source=google&utm_medium=cpc&utm_campaign=Google_DE_Ger_Global_Web_Brand&utm_content=667765271507&utm_term=paysend&gad_source=1&gad_campaignid=10582996039&gbraid=0AAAAADI7Ie8MJN5ykA9dkYIeEjrv5HOc4&gclid=CjwKCAiA5Y_YBhBbEiwAK5Dl7Q4p18UfeK9Eqk2NlWj64YbPaMQ7T9NiaWsxliv3ShnWmDkHZ5Ck6BoC0nMQAvD_BwE
+    url: 'https://paysend.com/de-de/send?utm_source=google&utm_medium=cpc&utm_campaign=Google_DE_Ger_Global_Web_Brand&utm_content=667765271507&utm_term=paysend&gad_source=1&gad_campaignid=10582996039&gbraid=0AAAAADI7Ie8MJN5ykA9dkYIeEjrv5HOc4&gclid=CjwKCAiA5Y_YBhBbEiwAK5Dl7Q4p18UfeK9Eqk2NlWj64YbPaMQ7T9NiaWsxliv3ShnWmDkHZ5Ck6BoC0nMQAvD_BwE',
     color: 'bg-purple-600 hover:bg-purple-500 text-white',
     tagBg: 'bg-purple-500/15',
     tagColor: 'text-purple-300',
