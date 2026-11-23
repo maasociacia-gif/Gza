@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ArrowLeft, Heart, Sparkles, Gift, Plus, X, Calendar, DollarSign, Package, Car, Truck, MessageSquare, Bike, Plane, Shield, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SendMoneyModal } from './SendMoneyModal';
-import { QuickActions } from './QuickActions';
 
 interface CareForHomeScreenProps {
   onBack: () => void;
@@ -31,8 +30,8 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
   const [eventNameGeo, setEventNameGeo] = useState('');
   const [selectedEventDate, setSelectedEventDate] = useState(15);
   const [sendGift, setSendGift] = useState(false);
-  
-  const [isSendMoneyOpen, setIsSendMoneyOpen] = useState(false); // 👈 2. დაემატა მოდალის სტეიტი
+
+  const [isSendMoneyOpen, setIsSendMoneyOpen] = useState(false);
 
   // Calendar dates with events - Full month
   const [calendarDates, setCalendarDates] = useState<CalendarEvent[]>([
@@ -69,13 +68,12 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
   const handleAddEvent = () => {
     if (!eventNameGeo) return;
 
-    setCalendarDates(prev => prev.map(date => 
+    setCalendarDates(prev => prev.map(date =>
       date.date === selectedEventDate
         ? { ...date, hasEvent: true, eventName: eventNameGeo, eventNameEng: eventNameGeo }
         : date
     ));
 
-    // Reset form and keep the selected date
     setEventNameGeo('');
     setSendGift(false);
     setShowAddEventForm(false);
@@ -144,9 +142,9 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#0D1B2A' }}>
       {/* Header */}
-      <div 
+      <div
         className="px-5 py-4"
-        style={{ 
+        style={{
           backgroundColor: 'rgba(13, 27, 42, 0.95)',
           backdropFilter: 'blur(20px)',
           borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
@@ -172,11 +170,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
       </div>
 
       {/* Main Content - Scrollable */}
-      <div className="flex-1 overflow-y-auto pb-28">
-        <div className="px-5 pt-6">
-          <QuickActions onSendMoneyClick={() => setIsSendMoneyOpen(true)} />
-        </div>
-
+      <div className="flex-1 overflow-y-auto pb-28 pt-6">
         {/* Family Calendar Widget - PROMINENT */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -194,7 +188,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
             }}
           >
             {/* Soft glow */}
-            <div 
+            <div
               className="absolute top-0 right-0 w-48 h-48 rounded-full opacity-10 blur-3xl"
               style={{ background: 'linear-gradient(135deg, #E8B4B8 0%, #DC143C 100%)' }}
             />
@@ -203,7 +197,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
               {/* Calendar Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div 
+                  <div
                     className="w-12 h-12 rounded-2xl flex items-center justify-center"
                     style={{
                       background: 'linear-gradient(135deg, rgba(232, 180, 184, 0.3) 0%, rgba(220, 20, 60, 0.2) 100%)',
@@ -224,8 +218,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                 <button
                   onClick={() => setShowAddEventForm(true)}
                   className="flex items-center justify-center border-0 cursor-pointer transition-all hover:scale-[1.05]"
-                  style={{ 
-                    backgroundColor: 'transparent',
+                  style={{
                     width: '44px',
                     height: '44px',
                     borderRadius: '14px',
@@ -264,15 +257,15 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                         : 'none'
                     }}
                   >
-                    <span 
+                    <span
                       className="text-white/60"
                       style={{ fontSize: '11px', fontWeight: '500' }}
                     >
                       {dateItem.dayGeo}
                     </span>
-                    <span 
-                      style={{ 
-                        fontSize: '22px', 
+                    <span
+                      style={{
+                        fontSize: '22px',
                         fontWeight: '700',
                         color: selectedDate === dateItem.date || dateItem.hasEvent ? '#E8B4B8' : 'white'
                       }}
@@ -280,7 +273,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                       {dateItem.date}
                     </span>
                     {dateItem.hasEvent && (
-                      <div 
+                      <div
                         className="w-1.5 h-1.5 rounded-full"
                         style={{ backgroundColor: '#E8B4B8', boxShadow: '0 0 8px rgba(232, 180, 184, 0.8)' }}
                       />
@@ -297,16 +290,16 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                   className="mt-4 pt-4"
                   style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}
                 >
-                  <div 
+                  <div
                     className="rounded-2xl p-4 flex items-center gap-3"
                     style={{
                       background: 'linear-gradient(135deg, rgba(232, 180, 184, 0.2) 0%, rgba(220, 20, 60, 0.15) 100%)',
                       border: '1px solid rgba(232, 180, 184, 0.3)'
                     }}
                   >
-                    <div 
+                    <div
                       className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ 
+                      style={{
                         backgroundColor: 'rgba(232, 180, 184, 0.3)',
                         border: '1px solid rgba(232, 180, 184, 0.5)'
                       }}
@@ -373,15 +366,15 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                                 : '1px solid rgba(255, 255, 255, 0.08)'
                             }}
                           >
-                            <span 
+                            <span
                               className="text-white/60"
                               style={{ fontSize: '10px', fontWeight: '500' }}
                             >
                               {dateItem.dayGeo}
                             </span>
-                            <span 
-                              style={{ 
-                                fontSize: '16px', 
+                            <span
+                              style={{
+                                fontSize: '16px',
                                 fontWeight: '700',
                                 color: selectedEventDate === dateItem.date ? '#E8B4B8' : 'white'
                               }}
@@ -423,7 +416,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                           border: sendGift ? '1px solid rgba(67, 233, 123, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)'
                         }}
                       >
-                        <div 
+                        <div
                           className="w-5 h-5 rounded flex items-center justify-center flex-shrink-0"
                           style={{
                             background: sendGift ? 'linear-gradient(135deg, #43E97B 0%, #38f9d7 100%)' : 'rgba(255, 255, 255, 0.1)',
@@ -452,8 +445,8 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                         background: (!eventNameGeo)
                           ? 'rgba(255, 255, 255, 0.1)'
                           : 'linear-gradient(135deg, #E8B4B8 0%, #DC143C 100%)',
-                        boxShadow: (!eventNameGeo) 
-                          ? 'none' 
+                        boxShadow: (!eventNameGeo)
+                          ? 'none'
                           : '0 4px 16px rgba(232, 180, 184, 0.4)',
                         opacity: (!eventNameGeo) ? 0.5 : 1,
                         cursor: (!eventNameGeo) ? 'not-allowed' : 'pointer'
@@ -513,7 +506,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
             </div>
           </motion.div>
         )}
-        
+
         {/* Services Section - Full Width Cards */}
         <div className="px-5 pb-6">
           <div className="mb-4">
@@ -533,7 +526,6 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + (index * 0.05) }}
                 onClick={() => {
-                  // 👈 3. აქტიურდება ფულის გადარიცხვის მოდალი
                   if (service.id === 'money-transfer') {
                     setIsSendMoneyOpen(true);
                   }
@@ -549,7 +541,7 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
               >
                 <div className="flex items-center gap-4 px-5 py-5">
                   {/* Icon Container */}
-                  <div 
+                  <div
                     className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
                     style={{
                       background: `linear-gradient(135deg, ${service.color}20 0%, ${service.color}10 100%)`,
@@ -591,12 +583,12 @@ export function CareForHomeScreen({ onBack }: CareForHomeScreenProps) {
         </div>
       </div>
 
-      {/* 👈 4. მოდალის გამოტანა კომპონენტის ბოლოში */}
-      <SendMoneyModal 
-        isOpen={isSendMoneyOpen} 
-        onClose={() => setIsSendMoneyOpen(false)} 
-        onSelectService={(serviceId) => {
-          console.log('არჩეული სერვისი:', serviceId);
+      {/* SendMoneyModal */}
+      <SendMoneyModal
+        isOpen={isSendMoneyOpen}
+        onClose={() => setIsSendMoneyOpen(false)}
+        onSelectService={(service) => {
+          console.log('არჩეული სერვისი:', service);
         }}
       />
     </div>
