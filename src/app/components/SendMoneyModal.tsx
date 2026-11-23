@@ -28,7 +28,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'MoneyGram',
     tag: 'პოპულარული',
     desc: 'სწრაფი გზავნილები Cash / Bank',
-    url: 'https://www.moneygram.com/DE/en/corridor/georgia',
+    url: 'https://www.moneygram.com/de/en/corridor/georgia',
     color: 'bg-red-600 hover:bg-red-500 text-white',
     tagBg: 'bg-red-500/15',
     tagColor: 'text-red-300',
