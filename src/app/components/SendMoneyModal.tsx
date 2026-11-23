@@ -10,13 +10,14 @@ export interface ServiceItem {
   tagBg: string;
   tagColor: string;
   borderColor: string;
+  url?: string;
   comingSoon?: boolean;
 }
 
 interface SendMoneyModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectService?: (serviceId: string) => void;
+  onSelectService?: (service: ServiceItem) => void;
   services?: ServiceItem[];
   bottomNavHeight?: number;
 }
@@ -27,6 +28,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'MoneyGram',
     tag: 'პოპულარული',
     desc: 'სწრაფი გზავნილები Cash / Bank',
+    url: 'https://www.moneygram.com/DE/en/corridor/georgia',
     color: 'bg-red-600 hover:bg-red-500 text-white',
     tagBg: 'bg-red-500/15',
     tagColor: 'text-red-300',
@@ -37,6 +39,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Western Union',
     tag: 'ახალი',
     desc: 'გლობალური ქსელი Cash / Bank',
+    url: undefined, // https://www.westernunion.com/de/de/web/send-money/start?ReceiveCountry=GE&ISOCurrency=GEL&SendAmount=100.00&FundsOut=undefined&FundsIn=CreditCard
     color: 'bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold',
     tagBg: 'bg-amber-500/15',
     tagColor: 'text-amber-300',
@@ -47,6 +50,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Profee',
     tag: 'ყველაზე იაფი ბარათზე',
     desc: 'პირდაპირ ქართულ ბარათზე',
+    url: undefined, // https://www.profee.com/ru
     color: 'bg-emerald-600 hover:bg-emerald-500 text-white',
     tagBg: 'bg-emerald-500/15',
     tagColor: 'text-emerald-300',
@@ -57,6 +61,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Wise',
     tag: 'საუკეთესო კურსი',
     desc: 'ოფიციალური შუა-საბაზრო კურსი',
+    url: undefined, // https://wise.com/de/send-money/?utm_source=google&matchtype=e&device=c&userlocation=9217572&keyword=wise+money+transfer&campaignid=20934525070&adgroupid=161278428447&utm_campaign=20934525070___161278428447&gad_source=1&gad_campaignid=20934525070&gbraid=0AAAAADqE2bBIYWyDzBXaUNWDb24SsTVYF&gclid=CjwKCAiA5Y_YBhBbEiwAK5Dl7dZe0xQYAq0R4NHOG5PT_1wtdKB4dlRCAPGKroRKRgnIABksUKsZ0hoCnb0QAvD_BwE
     color: 'bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold',
     tagBg: 'bg-sky-500/15',
     tagColor: 'text-sky-300',
@@ -67,6 +72,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
     name: 'Paysend',
     tag: 'Card to Card',
     desc: 'მომენტალური გადარიცხვა',
+    url: undefined, https://paysend.com/de-de/send?utm_source=google&utm_medium=cpc&utm_campaign=Google_DE_Ger_Global_Web_Brand&utm_content=667765271507&utm_term=paysend&gad_source=1&gad_campaignid=10582996039&gbraid=0AAAAADI7Ie8MJN5ykA9dkYIeEjrv5HOc4&gclid=CjwKCAiA5Y_YBhBbEiwAK5Dl7Q4p18UfeK9Eqk2NlWj64YbPaMQ7T9NiaWsxliv3ShnWmDkHZ5Ck6BoC0nMQAvD_BwE
     color: 'bg-purple-600 hover:bg-purple-500 text-white',
     tagBg: 'bg-purple-500/15',
     tagColor: 'text-purple-300',
@@ -75,7 +81,7 @@ const DEFAULT_SERVICES: ServiceItem[] = [
   {
     id: 'currency-exchange',
     name: 'ფულის გადაცვლა',
-    tag: '*მალე',
+    tag: 'მალე',
     desc: 'ვალუტის კონვერტაცია მალე დაემატება',
     color: 'bg-slate-700/70 text-slate-400 cursor-not-allowed',
     tagBg: 'bg-amber-500/15',
@@ -92,18 +98,25 @@ export const SendMoneyModal: React.FC<SendMoneyModalProps> = ({
   services = DEFAULT_SERVICES,
   bottomNavHeight = 68,
 }) => {
-  const [comingSoonMsg, setComingSoonMsg] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
   if (!isOpen || typeof document === 'undefined') return null;
 
   const handleServiceClick = (item: ServiceItem) => {
     if (item.comingSoon) {
-      setComingSoonMsg(`${item.name} (*მალე) — ეს ფუნქცია მალე ჩაირთვება.`);
+      setNotice(`${item.name} (მალე) — მალე დაემატება.`);
       return;
     }
-    setComingSoonMsg(null);
-    if (onSelectService) onSelectService(item.id);
-    onClose();
+
+    setNotice(null);
+    onSelectService?.(item);
+
+    if (item.url) {
+      window.open(item.url, '_blank', 'noopener,noreferrer');
+      onClose();
+    } else {
+      setNotice(`${item.name}-ის ბმული ჯერ მიბმული არ არის.`);
+    }
   };
 
   return createPortal(
@@ -168,9 +181,9 @@ export const SendMoneyModal: React.FC<SendMoneyModalProps> = ({
           ))}
         </div>
 
-        {comingSoonMsg && (
+        {notice && (
           <div className="mt-2.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-[11px] text-amber-200">
-            {comingSoonMsg}
+            {notice}
           </div>
         )}
       </div>
